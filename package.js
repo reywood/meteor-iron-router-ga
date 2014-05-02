@@ -1,5 +1,5 @@
 Package.describe({
-    summary: "Google analytics (universal edition) with some Iron Router sugar for tracking pageviews."
+    summary: "Google analytics (universal edition) with some Iron Router sugar for tracking page views."
 });
 
 Package.on_use(function(api) {

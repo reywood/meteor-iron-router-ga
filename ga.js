@@ -8,17 +8,21 @@ if (gaSettings.trackingId) {
     }(window, document, "script", "//www.google-analytics.com/analytics.js", "ga"));
 
     var options = {
-        cookieDomain: gaSettings.cookieDomain || window.location.hostname,
-        cookieName: gaSettings.cookieName,
-        cookieExpires: gaSettings.cookieExpires
+        cookieDomain: gaSettings.cookieDomain || window.location.hostname
     };
+    if (gaSettings.cookieName) {
+        options.cookieName = gaSettings.cookieName;
+    }
+    if (gaSettings.cookieExpires) {
+        options.cookieExpires = gaSettings.cookieExpires;
+    }
 
     window.ga("create", gaSettings.trackingId, options);
 
     if (gaSettings.forceSSL) {
         window.ga("set", "forceSSL", true);
     }
-    if (gaSettings.displayfeatures) {
+    if (gaSettings.displayFeatures) {
         window.ga("require", "displayfeatures");
     }
 } else {
