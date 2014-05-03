@@ -1,4 +1,5 @@
-var gaSettings = Meteor.settings.public && Meteor.settings.public.ga || {};
+var gaSettings = Meteor.settings.public && Meteor.settings.public.ga || {},
+    createOptions, requireValue, _undefined;
 
 if (gaSettings.id) {
     (function(i,s,o,g,r,a,m) {
@@ -7,31 +8,37 @@ if (gaSettings.id) {
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     }(window, document, "script", "//www.google-analytics.com/analytics.js", "ga"));
 
-    var options = {
-        cookieDomain: gaSettings.cookieDomain || window.location.hostname
-    };
-    if (gaSettings.cookieName) {
-        options.cookieName = gaSettings.cookieName;
-    }
-    if (gaSettings.cookieExpires) {
-        options.cookieExpires = gaSettings.cookieExpires;
+    createOptions = gaSettings.createOptions || "auto";
+
+    window.ga("create", gaSettings.id, createOptions);
+
+    if (gaSettings.set) {
+        for (var key in gaSettings.set) {
+            if (gaSettings.set.hasOwnProperty(key)) {
+                window.ga("set", key, gaSettings.set[key]);
+            }
+        }
     }
 
-    window.ga("create", gaSettings.id, options);
-
-    if (gaSettings.forceSSL) {
-        window.ga("set", "forceSSL", true);
-    }
-    if (gaSettings.displayFeatures) {
-        window.ga("require", "displayfeatures");
+    if (gaSettings.require) {
+        for (var key in gaSettings.require) {
+            if (gaSettings.require.hasOwnProperty(key)) {
+                requireValue = gaSettings.require[key];
+                if (typeof requireValue === "string") {
+                    window.ga("require", key, requireValue);
+                } else {
+                    window.ga("require", key);
+                }
+            }
+        }
     }
 } else {
     window.ga = (function() {
-        var run = true;
+        var hasRun = false;
         return function() {
-            if (run) {
+            if (!hasRun) {
+                hasRun = true;
                 console.log("Analytics settings not found");
-                run = false;
             }
         };
     }());

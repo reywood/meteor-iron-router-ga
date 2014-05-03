@@ -10,7 +10,7 @@ $ mrt add iron-router-ga
 
 ## Configuration
 
-Configure analytics by adding a `ga` section to the `public` section of your [Meteor settings](http://docs.meteor.com/#meteor_settings).
+Configure analytics by adding a `ga` section to the `public` section of your [Meteor settings](http://docs.meteor.com/#meteor_settings). The only required property is `id` which is your Google Analytics tracking ID.
 
 ```json
 {
@@ -22,31 +22,30 @@ Configure analytics by adding a `ga` section to the `public` section of your [Me
 }
 ```
 
-Available configuration options:
+### Advanced configuration options:
 
-* **id** -- string, *required*
+* **`createOptions`** -- string or object literal
 
-    Your web property's Google Analytics tracking ID
+    Options you would like to pass to the `ga("create", "UA-XXXX-Y", ...)` call. If this is
+    a string, it should be the domain you would like to use for the GA cookie. If this is an
+    object literal, it should have any of `cookieDomain`, `cookieName`, `cookieExpires`, etc
+    as properties. Details at Google's
+    [Advanced Configuration](https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced)
+    page. See advanced example below. Defaults to `"auto"`.
 
-* **cookieDomain** - string, *optional*
+* **`set`** -- object literal
 
-    The domain for the GA cookie, defaults to full website domain
+    Settings to apply to the tracker. These include `forceSSL`, `anonymizeIp`, etc. Details at
+    Google's [Advanced Configuration](https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced)
+    page. See advanced example below.
 
-* **cookieName** - string, *optional*
+* **`require`** -- object literal
 
-    The name used to store the GA cookie
-
-* **cookieExpires** - integer, *optional*
-
-    The expiration time (in seconds) of the GA cookie
-
-* **forceSSL** - boolean, *optional*
-
-    Force GA to use SSL for communication even if site is not using SSL, defaults to false
-
-* **displayFeatures** - boolean, *optional*
-
-    Enable [Display Advertising Features](https://developers.google.com/analytics/devguides/collection/analyticsjs/display-features), defaults to false
+    Additional tracking options to require such as
+    [Display Advertising Features](https://developers.google.com/analytics/devguides/collection/analyticsjs/display-features) or
+    [Enhanced Link Attribution](https://support.google.com/analytics/answer/2558867).
+    For features like `displayfeatures` that don't have a corresponding `*.js` parameter (as
+    `linkid` does), simply set the property value to `true`.
 
 Advanced configuration example:
 
@@ -55,11 +54,19 @@ Advanced configuration example:
     "public": {
         "ga": {
             "id": "UA-XXXX-Y",
-            "cookieDomain": "example.com",
-            "cookieName": "my_ga_cookie",
-            "cookieExpires": 3600,
-            "forceSSL": true,
-            "displayFeatures": true
+            "createOptions": {
+                "cookieDomain": "example.com",
+                "cookieName": "my_ga_cookie",
+                "cookieExpires": 3600
+            },
+            "set": {
+                "forceSSL": true,
+                "anonymizeIp": true
+            },
+            "require": {
+                "displayfeatures": true,
+                "linkid": "linkid.js"
+            }
         }
     }
 }
