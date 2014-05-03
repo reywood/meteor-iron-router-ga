@@ -24,22 +24,23 @@ Configure analytics by adding a `ga` section to the `public` section of your [Me
 
 ### Advanced configuration options:
 
+For more info on possible values for the configuration options below, check out Google's
+[Advanced Configuration](https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced)
+page.
+
 * **`create`** -- object literal
 
     Options you would like to pass to the `ga("create", "UA-XXXX-Y", ...)` call. It should have
-    any of `cookieDomain`, `cookieName`, `cookieExpires`, etc as properties. Details at Google's
-    [Advanced Configuration](https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced)
-    page. Defaults to the string `"auto"`.
+    any of `cookieDomain`, `cookieName`, `cookieExpires`, etc as properties. Defaults to the
+    string `"auto"`.
 
 * **`set`** -- object literal
 
-    Settings to apply to the tracker. These include `forceSSL`, `anonymizeIp`, etc. Details at
-    Google's [Advanced Configuration](https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced)
-    page.
+    Settings to apply to the tracker with `ga("set", ...)`. These include `forceSSL`, `anonymizeIp`, etc.
 
 * **`require`** -- object literal
 
-    Additional tracking options to require such as
+    Additional tracking options to require with `ga("require", ...)` such as
     [Display Advertising Features](https://developers.google.com/analytics/devguides/collection/analyticsjs/display-features) or
     [Enhanced Link Attribution](https://support.google.com/analytics/answer/2558867).
     For features like `displayfeatures` that don't have a corresponding `*.js` parameter (as
@@ -73,11 +74,11 @@ Advanced configuration example:
 
 ## Usage
 
-Simply by installing this package, you will have access to the `ga` function anywhere you need it. You can use it just as you would on any other site.
+Once you have installed this package and added the required configuration, you will have access to the `ga` function anywhere in your Meteor code. You can use it just as you would on any other site.
 
 ### Event Tracking
 
-[Tracking events](https://developers.google.com/analytics/devguides/collection/analyticsjs/events) is exactly the same:
+[Tracking events](https://developers.google.com/analytics/devguides/collection/analyticsjs/events) is the same as always:
 
 ```javascript
 ga("send", "event", category, action, label, value);
