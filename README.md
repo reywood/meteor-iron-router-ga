@@ -24,20 +24,18 @@ Configure analytics by adding a `ga` section to the `public` section of your [Me
 
 ### Advanced configuration options:
 
-* **`createOptions`** -- string or object literal
+* **`create`** -- object literal
 
-    Options you would like to pass to the `ga("create", "UA-XXXX-Y", ...)` call. If this is
-    a string, it should be the domain you would like to use for the GA cookie. If this is an
-    object literal, it should have any of `cookieDomain`, `cookieName`, `cookieExpires`, etc
-    as properties. Details at Google's
+    Options you would like to pass to the `ga("create", "UA-XXXX-Y", ...)` call. It should have
+    any of `cookieDomain`, `cookieName`, `cookieExpires`, etc as properties. Details at Google's
     [Advanced Configuration](https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced)
-    page. See advanced example below. Defaults to `"auto"`.
+    page. Defaults to the string `"auto"`.
 
 * **`set`** -- object literal
 
     Settings to apply to the tracker. These include `forceSSL`, `anonymizeIp`, etc. Details at
     Google's [Advanced Configuration](https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced)
-    page. See advanced example below.
+    page.
 
 * **`require`** -- object literal
 
@@ -54,7 +52,7 @@ Advanced configuration example:
     "public": {
         "ga": {
             "id": "UA-XXXX-Y",
-            "createOptions": {
+            "create": {
                 "cookieDomain": "example.com",
                 "cookieName": "my_ga_cookie",
                 "cookieExpires": 3600
