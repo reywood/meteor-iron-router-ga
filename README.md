@@ -30,9 +30,8 @@ page.
 
 * **`create`** -- object literal
 
-    Options you would like to pass to the `ga("create", "UA-XXXX-Y", ...)` call. It should have
-    any of `cookieDomain`, `cookieName`, `cookieExpires`, etc as properties. Defaults to the
-    string `"auto"`.
+    Options you would like to pass to `ga("create", "UA-XXXX-Y", ...)`. Should have
+    any of `cookieDomain`, `cookieName`, `cookieExpires`, etc as properties.
 
 * **`set`** -- object literal
 
