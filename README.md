@@ -16,7 +16,7 @@ Configure analytics by adding a `ga` section to the `public` section of your [Me
 {
     "public": {
         "ga": {
-            "trackingId": "UA-XXXX-Y"
+            "id": "UA-XXXX-Y"
         }
     }
 }
@@ -24,7 +24,7 @@ Configure analytics by adding a `ga` section to the `public` section of your [Me
 
 Available configuration options:
 
-* **trackingId** -- string, *required*
+* **id** -- string, *required*
 
     Your web property's Google Analytics tracking ID
 
@@ -54,7 +54,7 @@ Advanced configuration example:
 {
     "public": {
         "ga": {
-            "trackingId": "UA-XXXX-Y",
+            "id": "UA-XXXX-Y",
             "cookieDomain": "example.com",
             "cookieName": "my_ga_cookie",
             "cookieExpires": 3600,

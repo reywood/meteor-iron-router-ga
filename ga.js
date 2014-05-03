@@ -1,6 +1,6 @@
 var gaSettings = Meteor.settings.public && Meteor.settings.public.ga || {};
 
-if (gaSettings.trackingId) {
+if (gaSettings.id) {
     (function(i,s,o,g,r,a,m) {
         i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -17,7 +17,7 @@ if (gaSettings.trackingId) {
         options.cookieExpires = gaSettings.cookieExpires;
     }
 
-    window.ga("create", gaSettings.trackingId, options);
+    window.ga("create", gaSettings.id, options);
 
     if (gaSettings.forceSSL) {
         window.ga("set", "forceSSL", true);
