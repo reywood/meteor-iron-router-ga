@@ -1,0 +1,28 @@
+{
+  "name": "meteor-iron-router-ga",
+  "version": "0.0.0",
+  "description": "",
+  "main": "package.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-simple-mocha": "^0.4.0",
+    "should": "^3.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/reywood/meteor-iron-router-ga.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reywood/meteor-iron-router-ga/issues"
+  },
+  "homepage": "https://github.com/reywood/meteor-iron-router-ga"
+}

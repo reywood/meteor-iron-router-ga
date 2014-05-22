@@ -45,6 +45,10 @@ page.
     For features like `displayfeatures` that don't have a corresponding `*.js` parameter (as
     `linkid` does), simply set the property value to `true`.
 
+* **`contentExperiments`** -- object literal
+
+    Settings for Content Experiments configured in Google Analytics. Each route in your app can be configured with an experiment ID and a list of templates to show for each variation. The number of templates specified must match the number of variations (including the original) configured for the experiment. All visitors to the site are randomly assigned to one of the variations. Returning visitors will see the same variation they saw the first time they visited. Any route with an experiment assigned to it will also track a page view automatically. This is a requirement for experiments.
+
 Advanced configuration example:
 
 ```json
@@ -64,6 +68,14 @@ Advanced configuration example:
             "require": {
                 "displayfeatures": true,
                 "linkid": "linkid.js"
+            },
+            "contentExperiments": {
+                "routes": {
+                    "home": {
+                        "experimentId" : "a1b2c3d4e5f6g7h8i9",
+                        "variationTemplates": [ "template1", "template2" ]
+                    }
+                }
             }
         }
     }
