@@ -24,14 +24,11 @@ Configure analytics by adding a `ga` section to the `public` section of your [Me
 
 ### Advanced configuration options:
 
-For more info on possible values for the configuration options below, check out Google's
-[Advanced Configuration](https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced)
-page.
+For more info on possible values for the configuration options below, check out Google's [Advanced Configuration](https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced) page.
 
 * **`create`** -- object literal
 
-    Options you would like to pass to `ga("create", "UA-XXXX-Y", ...)`. Should have
-    any of `cookieDomain`, `cookieName`, `cookieExpires`, etc as properties.
+    Options you would like to pass to `ga("create", "UA-XXXX-Y", ...)`. Should have any of `cookieDomain`, `cookieName`, `cookieExpires`, etc as properties.
 
 * **`set`** -- object literal
 
@@ -39,15 +36,11 @@ page.
 
 * **`require`** -- object literal
 
-    Additional tracking options to require with `ga("require", ...)` such as
-    [Display Advertising Features](https://developers.google.com/analytics/devguides/collection/analyticsjs/display-features) or
-    [Enhanced Link Attribution](https://support.google.com/analytics/answer/2558867).
-    For features like `displayfeatures` that don't have a corresponding `*.js` parameter (as
-    `linkid` does), simply set the property value to `true`.
+    Additional tracking options to require with `ga("require", ...)` such as [Display Advertising Features](https://developers.google.com/analytics/devguides/collection/analyticsjs/display-features) or [Enhanced Link Attribution](https://support.google.com/analytics/answer/2558867). For features like `displayfeatures` that don't have a corresponding `*.js` parameter (as `linkid` does), simply set the property value to `true`.
 
 * **`contentExperiments`** -- object literal
 
-    Settings for Content Experiments configured in Google Analytics. Each route in your app can be configured with an experiment ID and a list of templates to show for each variation. The number of templates specified must match the number of variations (including the original) configured for the experiment. All visitors to the site are randomly assigned to one of the variations. Returning visitors will see the same variation they saw the first time they visited. Any route with an experiment assigned to it will also track a page view automatically. This is a requirement for experiments.
+    Settings for [Content Experiments](https://developers.google.com/analytics/devguides/platform/experiments) configured in Google Analytics. Each route in your app can be configured with an experiment ID and a list of templates to show for each variation. The number of templates specified must match the number of variations (including the original) configured for the experiment. All visitors to the site are randomly assigned to one of the variations. Returning visitors will see the same variation they saw the first time they visited. Any route with an experiment assigned to it will also track a page view automatically. This is a requirement for experiments. Additionally, you will need to add a snippet to one of your HTML files in order to load Google's experiments script: `<head><script src="//www.google-analytics.com/cx/api.js"></script></head>`. Note that this should not be placed inside a `<template>`.
 
 Advanced configuration example:
 

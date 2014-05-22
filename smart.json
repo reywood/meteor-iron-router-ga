@@ -3,7 +3,7 @@
     "description": "Google analytics (universal edition) with some Iron Router sugar for tracking page views.",
     "homepage": "https://github.com/reywood/meteor-iron-router-ga",
     "author": "Sean Dwyer (https://github.com/reywood)",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "git": "https://github.com/reywood/meteor-iron-router-ga.git",
     "packages": {
         "iron-router": {}
