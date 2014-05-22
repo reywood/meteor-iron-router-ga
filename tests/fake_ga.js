@@ -17,19 +17,24 @@ ga.reset = function() {
 
 
 cxApi = window.cxApi = {
-    NO_CHOSEN_VARIATION: 1000000000,
+    NO_CHOSEN_VARIATION: -1,
+
+    experiments: {},
 
     getChosenVariation: function(experimentId) {
-        return this.chosenVariation || this.NO_CHOSEN_VARIATION;
+        if (this.experiments[experimentId]) {
+            return this.experiments[experimentId].chosenVariation;
+        }
+        return this.NO_CHOSEN_VARIATION;
     },
 
     setChosenVariation: function(variationIndex, experimentId) {
-        this.chosenVariation = variationIndex;
+        this.experiments[experimentId] = { chosenVariation: variationIndex };
         gaCallStack.push("cxApi.setChosenVariation");
     },
 
     chooseVariation: function() {
-
+        throw new Exception("chooseVariation should never be called in the context of this project");
     },
 
     setDomainName: function(domainName) {
@@ -46,5 +51,6 @@ cxApi = window.cxApi = {
 
     reset: function() {
         this.chosenVariation = this.NO_CHOSEN_VARIATION;
+        this.experiments = {};
     }
 };

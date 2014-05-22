@@ -3,38 +3,21 @@ require("./fake_ga");
 require("./fake_router");
 require("../lib/router");
 
-Meteor = {
-    settings: {}
-};
-
 describe("content experiments:", function() {
-
-    var settings = {
-        "public": {
-            "ga": {
-                "contentExperiments": {
-                    "routes": {
-                        "home": {
-                            "experimentId" : "a1b2c3d4e5f6g7h8i9",
-                            "variationTemplates": [ "template1", "template2", "template3" ]
-                        }
-                    }
-                }
-            }
-        }
-    };
 
     beforeEach(function() {
         ga.reset();
         cxApi.reset();
         Router.reset();
-        Meteor.settings = {};
     });
 
     it("should display a variant and track page view", function() {
-        Meteor.settings = settings;
-
-        var route = Router.route("home", {});
+        var route = Router.route("home", {
+            gaContentExperiment: {
+                id: "a1b2c3d4e5f6g7h8i9",
+                variationTemplates: [ "template1", "template2", "template3" ]
+            }
+        });
 
         route.execute();
 
@@ -49,9 +32,39 @@ describe("content experiments:", function() {
         gaCallStack[1].should.equal("ga");
     });
 
-    it("should behave normally", function() {
-        Meteor.settings = {};
+    it("should choose a variant if none is set", function() {
+        var route = Router.route("home", {
+            gaContentExperiment: {
+                id: "a1b2c3d4e5f6g7h8i9",
+                variationTemplates: [ "template1", "template2", "template3" ]
+            }
+        });
 
+        route.execute();
+
+        cxApi.getChosenVariation("a1b2c3d4e5f6g7h8i9").should.be.within(0, 2);
+    });
+
+    it("should display the same template if a variant has been set", function() {
+        cxApi.setChosenVariation(1, "a1b2c3d4e5f6g7h8i9");
+
+        for (var i = 0; i < 100; i++) {
+            Router.reset();
+
+            var route = Router.route("home", {
+                gaContentExperiment: {
+                    id: "a1b2c3d4e5f6g7h8i9",
+                    variationTemplates: [ "template1", "template2", "template3" ]
+                }
+            });
+
+            route.execute();
+
+            route.renderedTemplate.should.equal("template2");
+        }
+    });
+
+    it("should behave normally if no experiment is configured", function() {
         var route = Router.route("home", {});
 
         route.execute();

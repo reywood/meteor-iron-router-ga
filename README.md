@@ -1,6 +1,6 @@
 # iron-router-ga
 
-Google analytics ([universal edition](https://support.google.com/analytics/answer/2790010?hl=en)) for [Meteor](https://www.meteor.com/) with some [Iron Router](https://github.com/EventedMind/iron-router) sugar for tracking page views.
+Google analytics ([universal edition](https://support.google.com/analytics/answer/2790010?hl=en)) for [Meteor](https://www.meteor.com/) with some [Iron Router](https://github.com/EventedMind/iron-router) sugar for tracking page views and doing A/B testing with [Content Experiments](https://developers.google.com/analytics/devguides/platform/experiments).
 
 ## Installation
 
@@ -8,7 +8,7 @@ Google analytics ([universal edition](https://support.google.com/analytics/answe
 $ mrt add iron-router-ga
 ```
 
-## Configuration
+## Meteor Settings
 
 Configure analytics by adding a `ga` section to the `public` section of your [Meteor settings](http://docs.meteor.com/#meteor_settings). The only required property is `id` which is your Google Analytics tracking ID.
 
@@ -38,10 +38,6 @@ For more info on possible values for the configuration options below, check out 
 
     Additional tracking options to require with `ga("require", ...)` such as [Display Advertising Features](https://developers.google.com/analytics/devguides/collection/analyticsjs/display-features) or [Enhanced Link Attribution](https://support.google.com/analytics/answer/2558867). For features like `displayfeatures` that don't have a corresponding `*.js` parameter (as `linkid` does), simply set the property value to `true`.
 
-* **`contentExperiments`** -- object literal
-
-    Settings for [Content Experiments](https://developers.google.com/analytics/devguides/platform/experiments) configured in Google Analytics. Each route in your app can be configured with an experiment ID and a list of templates to show for each variation. The number of templates specified must match the number of variations (including the original) configured for the experiment. All visitors to the site are randomly assigned to one of the variations. Returning visitors will see the same variation they saw the first time they visited. Any route with an experiment assigned to it will also track a page view automatically. This is a requirement for experiments. Additionally, you will need to add a snippet to one of your HTML files in order to load Google's experiments script: `<head><script src="//www.google-analytics.com/cx/api.js"></script></head>`. Note that this should not be placed inside a `<template>`.
-
 Advanced configuration example:
 
 ```json
@@ -61,14 +57,6 @@ Advanced configuration example:
             "require": {
                 "displayfeatures": true,
                 "linkid": "linkid.js"
-            },
-            "contentExperiments": {
-                "routes": {
-                    "home": {
-                        "experimentId" : "a1b2c3d4e5f6g7h8i9",
-                        "variationTemplates": [ "template1", "template2" ]
-                    }
-                }
             }
         }
     }
@@ -127,6 +115,31 @@ Router.route("routeName", {
     // ...
 });
 ```
+
+### A/B Testing with Content Experiments
+
+Each route in your app can be configured with an experiment ID and a list of templates to show for each variation. First, you must set up the experiment in your Google Analytics dashboard. The number of templates specified must match the number of variations (including the original) configured for the experiment. All visitors to the site are randomly assigned to one of the variations. Returning visitors will see the same variation they saw the first time they visited. Any route with an experiment assigned to it will also track a page view automatically. This is a requirement for experiments.
+
+```javascript
+Router.route("routeName", {
+    // ...
+    gaContentExperiment: {
+        id: "YOUR_EXPERIMENT_ID",
+        variationTemplates: [ "template1", "template2", "template3" ]
+    }
+    // ...
+});
+```
+
+Additionally, you will need to add a snippet to one of your HTML files in order to load Google's experiments script.
+
+```html
+<head>
+    <script src="//www.google-analytics.com/cx/api.js"></script>
+</head>
+```
+
+Note that this should not be placed inside a `<template>`.
 
 --------------------------------------------------------
 
