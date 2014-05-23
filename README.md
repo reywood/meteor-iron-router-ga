@@ -118,7 +118,7 @@ Router.route("routeName", {
 
 ### A/B Testing with Content Experiments
 
-Each route in your app can be configured with an experiment ID and a list of templates to show for each variation. First, you must set up the experiment in your Google Analytics dashboard. The number of templates specified must match the number of variations (including the original) configured for the experiment. All visitors to the site are randomly assigned to one of the variations. Returning visitors will see the same variation they saw the first time they visited. Any route with an experiment assigned to it will also track a page view automatically. This is a requirement for experiments.
+Each route in your app can be configured with an experiment ID and a list of templates to show for each variation. First, you must set up the experiment in your Google Analytics dashboard. Once that's done, add a `gaContentExperiment` configuration option to the route you want to experiment on (see snippet below for details). The number of templates specified in the `variationTemplates` array property must match the number of variations (including the original) configured for the experiment. All visitors to the site are randomly assigned to one of the variations. Returning visitors will see the same variation they saw the first time they visited. Any route with an experiment assigned to it will also track a page view automatically. This is a requirement for experiments.
 
 ```javascript
 Router.route("routeName", {
@@ -131,7 +131,7 @@ Router.route("routeName", {
 });
 ```
 
-Additionally, you will need to add a snippet to one of your HTML files in order to load Google's experiments script.
+Additionally, you will need to add a snippet to one of your HTML files in order to load Google's experiments API.
 
 ```html
 <head>
