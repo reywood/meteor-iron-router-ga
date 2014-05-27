@@ -20,6 +20,7 @@ cxApi = window.cxApi = {
     NO_CHOSEN_VARIATION: -1,
 
     experiments: {},
+    chooseVariationCalled: false,
 
     getChosenVariation: function(experimentId) {
         if (this.experiments[experimentId]) {
@@ -33,8 +34,10 @@ cxApi = window.cxApi = {
         gaCallStack.push("cxApi.setChosenVariation");
     },
 
-    chooseVariation: function() {
-        throw new Exception("chooseVariation should never be called in the context of this project");
+    chooseVariation: function(experimentId) {
+        this.chooseVariationCalled = true;
+        this.setChosenVariation(0, experimentId);
+        return 0;
     },
 
     setDomainName: function(domainName) {
@@ -52,5 +55,6 @@ cxApi = window.cxApi = {
     reset: function() {
         this.chosenVariation = this.NO_CHOSEN_VARIATION;
         this.experiments = {};
+        this.chooseVariationCalled = false;
     }
 };

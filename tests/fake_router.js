@@ -29,6 +29,9 @@ FakeRoute = function(name, options) {
     this.name = this.path = name;
     this.options = options;
     this.renderedTemplate = null;
+
+    this.route = this;
+    this.router = { options: {} };
 };
 
 FakeRoute.prototype.render = function(template) {
@@ -37,12 +40,36 @@ FakeRoute.prototype.render = function(template) {
 
 FakeRoute.prototype.execute = function() {
     var args = [].slice.apply(arguments);
+    var paused = false;
 
     this.options.onRun && this.options.onRun.apply(this, args);
-    this.options.onBeforeAction && this.options.onBeforeAction.apply(this, args);
-    this.options.action && this.options.action.apply(this, args);
-    this.options.onAfterAction && this.options.onAfterAction.apply(this, args);
+    this.options.onBeforeAction && this.options.onBeforeAction.call(this, function pause() {
+        paused = true;
+    });
+
+    if (!paused) {
+        this.options.action && this.options.action.apply(this, args);
+        this.options.onAfterAction && this.options.onAfterAction.apply(this, args);
+    }
 };
 
+FakeRoute.prototype.run = function() {
+    var args = [].slice.apply(arguments);
+    this.options.onRun && this.options.onRun.apply(this, args);
+};
+
+FakeRoute.prototype.action = function() {
+    var args = [].slice.apply(arguments);
+    var paused = false;
+
+    this.options.onBeforeAction && this.options.onBeforeAction.call(this, function pause() {
+        paused = true;
+    });
+
+    if (!paused) {
+        this.options.action && this.options.action.apply(this, args);
+        this.options.onAfterAction && this.options.onAfterAction.apply(this, args);
+    }
+};
 
 Router = new FakeRouter();

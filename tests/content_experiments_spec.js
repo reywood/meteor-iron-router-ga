@@ -1,7 +1,14 @@
 require("should");
+
+var jsdom = require("jsdom").jsdom;
+window = jsdom().createWindow();
+document = window.document;
+
+require("./fake_deps");
 require("./fake_ga");
 require("./fake_router");
 require("../lib/router");
+
 
 describe("content experiments:", function() {
 
@@ -11,7 +18,7 @@ describe("content experiments:", function() {
         Router.reset();
     });
 
-    it("should display a variant and track page view", function() {
+    it("should display a variant and send an event", function() {
         var route = Router.route("home", {
             gaContentExperiment: {
                 id: "a1b2c3d4e5f6g7h8i9",
@@ -19,14 +26,17 @@ describe("content experiments:", function() {
             }
         });
 
-        route.execute();
+        route.run();
+        window.cxApi = cxApi;
+        route.action();
 
         route.renderedTemplate.should.match(/^(template1|template2|template3)$/);
 
         ga.queue.length.should.equal(1);
         ga.queue[0][0].should.equal("send");
-        ga.queue[0][1].should.equal("pageview");
-        ga.queue[0][2].should.equal("home");
+        ga.queue[0][1].should.equal("event");
+        ga.queue[0][2].should.equal("iron-router-ga");
+        ga.queue[0][3].should.equal("Choose experiment variation");
 
         gaCallStack[0].should.equal("cxApi.setChosenVariation");
         gaCallStack[1].should.equal("ga");
@@ -40,9 +50,11 @@ describe("content experiments:", function() {
             }
         });
 
-        route.execute();
+        route.run();
+        window.cxApi = cxApi;
+        route.action();
 
-        cxApi.getChosenVariation("a1b2c3d4e5f6g7h8i9").should.be.within(0, 2);
+        cxApi.chooseVariationCalled.should.be.true;
     });
 
     it("should display the same template if a variant has been set", function() {
@@ -58,7 +70,9 @@ describe("content experiments:", function() {
                 }
             });
 
-            route.execute();
+            route.run();
+            window.cxApi = cxApi;
+            route.action();
 
             route.renderedTemplate.should.equal("template2");
         }
