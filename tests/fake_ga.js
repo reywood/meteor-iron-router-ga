@@ -18,6 +18,8 @@ ga.reset = function() {
 
 cxApi = window.cxApi = {
     NO_CHOSEN_VARIATION: -1,
+    NOT_PARTICIPATING: -2,
+    ORIGINAL_VARIATION: 0,
 
     experiments: {},
     chooseVariationCalled: false,
