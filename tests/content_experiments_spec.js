@@ -28,7 +28,7 @@ describe("content experiments:", function() {
         });
 
         route.run();
-        window.cxApi = cxApi;
+        simulateCxApiScriptLoad();
         route.action();
 
         route.renderedTemplate.should.match(/^(template1|template2|template3)$/);
@@ -39,6 +39,7 @@ describe("content experiments:", function() {
         fakeGa.queue[0][2].should.equal("iron-router-ga");
         fakeGa.queue[0][3].should.equal("Choose experiment variation");
 
+        fakeGa.callStack.length.should.equal(2);
         fakeGa.callStack[0].should.equal("cxApi.setChosenVariation");
         fakeGa.callStack[1].should.equal("ga");
     });
@@ -52,7 +53,7 @@ describe("content experiments:", function() {
         });
 
         route.run();
-        window.cxApi = cxApi;
+        simulateCxApiScriptLoad();
         route.action();
 
         cxApi.chooseVariationCalled.should.be.true;
@@ -72,7 +73,7 @@ describe("content experiments:", function() {
             });
 
             route.run();
-            window.cxApi = cxApi;
+            simulateCxApiScriptLoad();
             route.action();
 
             route.renderedTemplate.should.equal("template2");
@@ -80,7 +81,7 @@ describe("content experiments:", function() {
     });
 
     it("should behave normally if no experiment is configured", function() {
-        var route = Router.route("home", {});
+        var route = Router.route("home");
 
         route.execute();
 
@@ -88,3 +89,7 @@ describe("content experiments:", function() {
     });
 
 });
+
+var simulateCxApiScriptLoad = function() {
+    window.cxApi = cxApi;
+};

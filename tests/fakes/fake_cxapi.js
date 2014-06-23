@@ -2,7 +2,7 @@ var fakeGa = require("./fake_ga");
 
 if (typeof window === "undefined") { window = {}; }
 
-cxApi = window.cxApi = {
+window.cxApi = cxApi = {
     NO_CHOSEN_VARIATION: -1,
     NOT_PARTICIPATING: -2,
     ORIGINAL_VARIATION: 0,
@@ -44,6 +44,7 @@ cxApi = window.cxApi = {
 
 module.exports = {
     reset: function() {
+        window.cxApi = cxApi;
         cxApi.chosenVariation = cxApi.NO_CHOSEN_VARIATION;
         cxApi.experiments = {};
         cxApi.chooseVariationCalled = false;

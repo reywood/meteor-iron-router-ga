@@ -15,7 +15,13 @@ module.exports = {
 
     reset: function() {
         window.ga = ga;
-        queue.length = 0;
-        callStack.length = 0;
+        clearArray(queue);
+        clearArray(callStack);
+    }
+};
+
+var clearArray = function(a) {
+    while (a.length) {
+        a.pop();
     }
 };
