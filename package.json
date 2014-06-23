@@ -3,9 +3,6 @@
   "version": "0.0.0",
   "description": "",
   "main": "package.js",
-  "directories": {
-    "test": "tests"
-  },
   "dependencies": {},
   "devDependencies": {
     "grunt": "^0.4.5",
