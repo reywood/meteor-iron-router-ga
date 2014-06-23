@@ -33,14 +33,14 @@ describe("content experiments:", function() {
 
         route.renderedTemplate.should.match(/^(template1|template2|template3)$/);
 
-        ga.queue.length.should.equal(1);
-        ga.queue[0][0].should.equal("send");
-        ga.queue[0][1].should.equal("event");
-        ga.queue[0][2].should.equal("iron-router-ga");
-        ga.queue[0][3].should.equal("Choose experiment variation");
+        fakeGa.queue.length.should.equal(1);
+        fakeGa.queue[0][0].should.equal("send");
+        fakeGa.queue[0][1].should.equal("event");
+        fakeGa.queue[0][2].should.equal("iron-router-ga");
+        fakeGa.queue[0][3].should.equal("Choose experiment variation");
 
-        gaCallStack[0].should.equal("cxApi.setChosenVariation");
-        gaCallStack[1].should.equal("ga");
+        fakeGa.callStack[0].should.equal("cxApi.setChosenVariation");
+        fakeGa.callStack[1].should.equal("ga");
     });
 
     it("should choose a variant if none is set", function() {

@@ -73,6 +73,10 @@ Router = new FakeRouter();
 
 module.exports = {
     reset: function() {
-        Router.routes = {};
+        for (var i in Router.routes) {
+            if (Router.routes.hasOwnProperty(i)) {
+                delete Router.routes[i];
+            }
+        }
     }
 };

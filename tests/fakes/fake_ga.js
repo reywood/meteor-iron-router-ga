@@ -1,21 +1,21 @@
 if (typeof window === "undefined") { window = {}; }
 
-if (!window.ga) {
-    gaCallStack = [];
+var callStack = [];
+var queue = [];
 
-    ga = window.ga = function() {
-        var args = [].slice.apply(arguments);
-        gaCallStack.push("ga");
-        ga.queue.push(args);
-    };
-
-    ga.queue = [];
-}
+window.ga = ga = function() {
+    var args = [].slice.apply(arguments);
+    callStack.push("ga");
+    queue.push(args);
+};
 
 module.exports = {
+    callStack: callStack,
+    queue: queue,
+
     reset: function() {
         window.ga = ga;
-        ga.queue = [];
-        gaCallStack = [];
+        queue.length = 0;
+        callStack.length = 0;
     }
 };

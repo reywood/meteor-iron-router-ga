@@ -1,3 +1,5 @@
+var fakeGa = require("./fake_ga");
+
 if (typeof window === "undefined") { window = {}; }
 
 cxApi = window.cxApi = {
@@ -17,7 +19,7 @@ cxApi = window.cxApi = {
 
     setChosenVariation: function(variationIndex, experimentId) {
         this.experiments[experimentId] = { chosenVariation: variationIndex };
-        gaCallStack.push("cxApi.setChosenVariation");
+        fakeGa.callStack.push("cxApi.setChosenVariation");
     },
 
     chooseVariation: function(experimentId) {

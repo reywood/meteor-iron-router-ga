@@ -17,10 +17,10 @@ describe("page view:", function() {
 
         Router.executeRoute("test-route");
 
-        ga.queue.length.should.equal(1);
-        ga.queue[0][0].should.equal("send");
-        ga.queue[0][1].should.equal("pageview");
-        ga.queue[0][2].should.equal("test-route");
+        fakeGa.queue.length.should.equal(1);
+        fakeGa.queue[0][0].should.equal("send");
+        fakeGa.queue[0][1].should.equal("pageview");
+        fakeGa.queue[0][2].should.equal("test-route");
     });
 
     it("should not track page view", function() {
@@ -30,7 +30,7 @@ describe("page view:", function() {
 
         Router.executeRoute("test-route");
 
-        ga.queue.length.should.equal(0);
+        fakeGa.queue.length.should.equal(0);
     });
 
     it("should call route's onRun handler and pass along arguments if tracking is enabled", function() {
