@@ -62,4 +62,8 @@ describe("page view:", function() {
 
         arg1Value.should.equal("foo");
     });
+
+    it("should handle routes with no options", function() {
+        Router.route("no-options");
+    });
 });
