@@ -1,4 +1,4 @@
-FakeRouter = function() {
+var FakeRouter = function() {
     this.routes = {};
 };
 
@@ -20,12 +20,8 @@ FakeRouter.prototype.executeRoute = function(name) {
     route.execute.apply(route, args);
 };
 
-FakeRouter.prototype.reset = function() {
-    this.routes = {};
-};
 
-
-FakeRoute = function(name, options) {
+var FakeRoute = function(name, options) {
     this.name = this.path = name;
     this.options = options;
     this.renderedTemplate = null;
@@ -73,3 +69,10 @@ FakeRoute.prototype.action = function() {
 };
 
 Router = new FakeRouter();
+
+
+module.exports = {
+    reset: function() {
+        Router.routes = {};
+    }
+};

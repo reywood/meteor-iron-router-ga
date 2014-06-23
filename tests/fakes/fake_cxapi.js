@@ -1,20 +1,4 @@
-window = {};
-
-gaCallStack = [];
-
-ga = window.ga = function() {
-    var args = [].slice.apply(arguments);
-    gaCallStack.push("ga");
-    ga.queue.push(args);
-};
-
-ga.queue = [];
-
-ga.reset = function() {
-    ga.queue = [];
-    gaCallStack = [];
-};
-
+if (typeof window === "undefined") { window = {}; }
 
 cxApi = window.cxApi = {
     NO_CHOSEN_VARIATION: -1,
@@ -43,20 +27,23 @@ cxApi = window.cxApi = {
     },
 
     setDomainName: function(domainName) {
-
+        this.domainName = domainName;
     },
 
     setCookiePath: function(cookiePath) {
-
+        this.cookiePath = cookiePath;
     },
 
     setAllowHash: function(allowHash) {
+        this.allowHash = allowHash;
+    }
+};
 
-    },
 
+module.exports = {
     reset: function() {
-        this.chosenVariation = this.NO_CHOSEN_VARIATION;
-        this.experiments = {};
-        this.chooseVariationCalled = false;
+        cxApi.chosenVariation = cxApi.NO_CHOSEN_VARIATION;
+        cxApi.experiments = {};
+        cxApi.chooseVariationCalled = false;
     }
 };

@@ -21,7 +21,7 @@ describe("content experiments:", function() {
 
     it("should display a variant and send an event", function() {
         var route = Router.route("home", {
-            contentExperiment: {
+            gaContentExperiment: {
                 id: "a1b2c3d4e5f6g7h8i9",
                 variationTemplates: [ "template1", "template2", "template3" ]
             }
@@ -45,7 +45,7 @@ describe("content experiments:", function() {
 
     it("should choose a variant if none is set", function() {
         var route = Router.route("home", {
-            contentExperiment: {
+            gaContentExperiment: {
                 id: "a1b2c3d4e5f6g7h8i9",
                 variationTemplates: [ "template1", "template2", "template3" ]
             }
@@ -65,7 +65,7 @@ describe("content experiments:", function() {
             fakeRouter.reset();
 
             var route = Router.route("home", {
-                contentExperiment: {
+                gaContentExperiment: {
                     id: "a1b2c3d4e5f6g7h8i9",
                     variationTemplates: [ "template1", "template2", "template3" ]
                 }

@@ -1,13 +1,13 @@
 require("should");
-require("./fake_ga");
-require("./fake_router");
+var fakeGa = require("./fakes/fake_ga");
+var fakeRouter = require("./fakes/fake_router");
 require("../lib/router");
 
 describe("page view:", function() {
 
     beforeEach(function() {
-        ga.reset();
-        Router.reset();
+        fakeGa.reset();
+        fakeRouter.reset();
     });
 
     it("should track page view", function() {
