@@ -118,7 +118,11 @@ Router.route("routeName", {
 
 ### A/B Testing with Content Experiments
 
-Each route in your app can be configured with an experiment ID and a list of templates to show for each variation. First, you must set up the experiment in your Google Analytics dashboard. Once that's done, add a `contentExperiment` configuration option to the route you want to experiment on (see snippet below for details). The number of templates specified in the `variationTemplates` array property must match the number of variations (including the original) configured for the experiment. All visitors to the site are assigned to one of the variations according to the settings for your experiment (multi-arm bandit, percentage of traffic to experiment, etc). Returning visitors will see the same variation they saw the first time they visited. Any route with an experiment assigned to it will also track an event. This event will show up in your analytics dashboard under the category "iron-router-ga". This is a requirement for experiments in order to record a user's chosen variation.
+Each route in your app can be configured with an experiment ID and a list of templates to show for each variation. First, you must set up the experiment in your Google Analytics dashboard. Once that's done, add a `contentExperiment` configuration option to the route you want to experiment on (see snippet below for details). The number of templates specified in the `variationTemplates` array property *must* match the number of variations (including the original) configured for the experiment.
+
+All visitors to the site are assigned to one of the variations according to the settings for your experiment (multi-arm bandit, percentage of traffic to experiment, etc). These settings are configured in your Google Analytics dashboard or via [Google's API](https://developers.google.com/analytics/devguides/config/mgmt/v3/mgmtExperimentsGuide). Returning visitors will see the same variation they saw the first time they visited.
+
+Any route with an experiment assigned to it will also track an event. This event will show up in your analytics dashboard under the category "iron-router-ga". This is a requirement for experiments in order to record a user's chosen variation.
 
 ```javascript
 Router.route("routeName", {
