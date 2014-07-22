@@ -129,22 +129,22 @@ Router.route("routeName", {
     // ...
     contentExperiment: {
         id: "YOUR_EXPERIMENT_ID",
-        variationTemplates: [ "template1", "template2", "template3" ]
+        variationTemplates: [ "original", "variation1", "variation2" ]
     }
     // ...
 });
 ```
 
 ```handlebars
-<template name="template1">
+<template name="original">
     Original
 </template>
 
-<template name="template2">
+<template name="variation1">
     Variation 1
 </template>
 
-<template name="template3">
+<template name="variation2">
     Variation 2
 </template>
 ```
