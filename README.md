@@ -135,6 +135,20 @@ Router.route("routeName", {
 });
 ```
 
+```handlebars
+<template name="template1">
+    Original
+</template>
+
+<template name="template2">
+    Variation 1
+</template>
+
+<template name="template3">
+    Variation 2
+</template>
+```
+
 --------------------------------------------------------
 
 If you find a bug or would like to see an improvement made, please [file an issue or submit a pull request on GitHub](https://github.com/reywood/meteor-iron-router-ga/issues).
