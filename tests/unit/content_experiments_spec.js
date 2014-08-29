@@ -8,7 +8,7 @@ require("./fakes/fake_deps");
 var fakeCxApi = require("./fakes/fake_cxapi");
 var fakeGa = require("./fakes/fake_ga");
 var fakeRouter = require("./fakes/fake_router");
-require("../lib/router");
+require("../../lib/router");
 
 
 describe("content experiments:", function() {

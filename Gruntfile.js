@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 
             all: {
                 src: [
-                    "tests/**/*_spec.js"
+                    "tests/unit/**/*_spec.js"
                 ]
             }
         }

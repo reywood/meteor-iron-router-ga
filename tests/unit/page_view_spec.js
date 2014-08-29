@@ -1,7 +1,7 @@
 require("should");
 var fakeGa = require("./fakes/fake_ga");
 var fakeRouter = require("./fakes/fake_router");
-require("../lib/router");
+require("../../lib/router");
 
 describe("page view:", function() {
 
