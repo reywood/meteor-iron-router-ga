@@ -5,7 +5,7 @@ Google analytics ([universal edition](https://support.google.com/analytics/answe
 ## Installation
 
 ```sh
-$ meteor add mrt:iron-router-ga
+$ meteor add reywood:iron-router-ga
 ```
 
 ## Meteor Settings
