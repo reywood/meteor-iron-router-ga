@@ -5,9 +5,9 @@ Package.describe({
     git: "https://github.com/reywood/meteor-iron-router-ga.git"
 });
 
-Package.on_use(function(api) {
+Package.onUse(function(api) {
     api.versionsFrom("METEOR@0.9.0");
-    api.use("cmather:iron-router@0.8.2", "client");
+    api.use("iron:router", "client");
 
-    api.add_files([ "lib/ga.js", "lib/router.js" ], "client");
+    api.addFiles([ "lib/ga.js", "lib/router.js" ], "client");
 });
