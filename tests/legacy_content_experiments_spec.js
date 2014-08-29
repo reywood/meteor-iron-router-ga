@@ -39,6 +39,7 @@ describe("content experiments (legacy):", function() {
         fakeGa.queue[0][2].should.equal("iron-router-ga");
         fakeGa.queue[0][3].should.equal("Choose experiment variation");
 
+        console.log(JSON.stringify(fakeGa.callStack));
         fakeGa.callStack.length.should.equal(2);
         fakeGa.callStack[0].should.equal("cxApi.setChosenVariation");
         fakeGa.callStack[1].should.equal("ga");
