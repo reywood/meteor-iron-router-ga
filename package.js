@@ -1,9 +1,13 @@
 Package.describe({
-    summary: "Google analytics (universal edition) with some Iron Router sugar for tracking page views."
+    name: "mrt:iron-router-ga",
+    summary: "Google analytics (universal edition) with some Iron Router sugar for tracking page views.",
+    version: "0.3.0",
+    git: "https://github.com/reywood/meteor-iron-router-ga.git"
 });
 
 Package.on_use(function(api) {
-    api.use("iron-router", "client");
+    api.versionsFrom("METEOR@0.9.0");
+    api.use("cmather:iron-router@0.8.2", "client");
 
     api.add_files([ "lib/ga.js", "lib/router.js" ], "client");
 });
