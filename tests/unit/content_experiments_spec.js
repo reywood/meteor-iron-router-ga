@@ -1,13 +1,12 @@
 require("should");
 
-var jsdom = require("jsdom").jsdom;
-window = jsdom().createWindow();
-document = window.document;
-
 require("./fakes/fake_deps");
+require("./fakes/fake_window");
+
 var fakeCxApi = require("./fakes/fake_cxapi");
 var fakeGa = require("./fakes/fake_ga");
 var fakeRouter = require("./fakes/fake_router");
+
 require("../../lib/router");
 
 
