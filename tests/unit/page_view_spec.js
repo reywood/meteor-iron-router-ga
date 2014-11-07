@@ -20,7 +20,7 @@ describe("page view:", function() {
         fakeGa.queue.length.should.equal(1);
         fakeGa.queue[0][0].should.equal("send");
         fakeGa.queue[0][1].should.equal("pageview");
-        fakeGa.queue[0][2].should.equal("test-route");
+        fakeGa.queue[0][2].should.equal("http://localhost/test-route");
     });
 
     it("should not track page view", function() {
@@ -61,6 +61,16 @@ describe("page view:", function() {
         Router.executeRoute("test-route", "foo");
 
         arg1Value.should.equal("foo");
+    });
+
+    it("should call next() after tracking the page view", function() {
+        Router.route("test-route", {
+            trackPageView: true
+        });
+
+        Router.executeRoute("test-route");
+
+        Router.routes["test-route"].nextCallCount.should.equal(1);
     });
 
     it("should handle routes with no options", function() {
