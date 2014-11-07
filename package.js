@@ -7,7 +7,7 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.versionsFrom("METEOR@0.9.0");
-    api.use("iron:router@0.9.1", "client");
+    api.use("iron:router@1.0.0", "client");
 
     api.addFiles([ "lib/ga.js", "lib/router.js" ], "client");
 });
