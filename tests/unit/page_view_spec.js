@@ -40,6 +40,7 @@ describe("page view:", function() {
             trackPageView: true,
             onRun: function(arg1) {
                 arg1Value = arg1;
+                this.next();
             }
         });
 
@@ -55,6 +56,7 @@ describe("page view:", function() {
             trackPageView: false,
             onRun: function(arg1) {
                 arg1Value = arg1;
+                this.next();
             }
         });
 

@@ -38,17 +38,12 @@ FakeRoute.prototype.render = function(template) {
 
 FakeRoute.prototype.execute = function() {
     var args = [].slice.apply(arguments);
-    var nextCallCountBeforeCall;
 
-    nextCallCountBeforeCall = this.nextCallCount;
-    this.options.onRun && this.options.onRun.apply(this, args);
-    if (this.nextCallCount === nextCallCountBeforeCall) {
+    if (!callHandlerThatRequiresNextCall.call(this, this.options.onRun, args)) {
         return;
     }
 
-    nextCallCountBeforeCall = this.nextCallCount;
-    this.options.onBeforeAction && this.options.onBeforeAction.call(this);
-    if (this.nextCallCount === nextCallCountBeforeCall) {
+    if (!callHandlerThatRequiresNextCall.call(this, this.options.onBeforeAction, args)) {
         return;
     }
 
@@ -78,6 +73,23 @@ FakeRoute.prototype.action = function() {
 FakeRoute.prototype.next = function() {
     this.nextCallCount++;
 };
+
+
+var callHandlerThatRequiresNextCall = function(handler, args) {
+    if (!handler) { return true; }
+
+    var nextCallCountBeforeCall = this.nextCallCount;
+    handler.apply(this, args);
+
+    if (this.nextCallCount === nextCallCountBeforeCall) {
+        return false;
+    } else if (this.nextCallCount - nextCallCountBeforeCall !== 1) {
+        throw new Error('this.next() called too many times');
+    }
+
+    return true;
+};
+
 
 Router = new FakeRouter();
 
