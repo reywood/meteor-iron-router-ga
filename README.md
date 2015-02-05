@@ -151,6 +151,16 @@ Router.route("routeName", {
 </template>
 ```
 
+## Known Issues
+
+### Route dispatch never rendered
+
+If you are using content experiments, you may see the following message in your browser's JavaScript console.
+
+> Route dispatch never rendered. Did you forget to call this.next() in an onBeforeAction?
+
+When a route with an experiment is triggered, a JS file specific to your experiment must be loaded from Google in order to select the appropriate variant to show. While this file is loading, iron-router-ga will show your "loading" template and effectively pause the route by not calling `this.next()` in `onBeforeNext`. In practice, this pause is barely noticeable, but will cause the above message to appear. Once the file is loaded, your route will unpause and continue loading. This behavior appears to be by design in iron-router. If you know different, please set me straight.
+
 --------------------------------------------------------
 
 If you find a bug or would like to see an improvement made, please [file an issue or submit a pull request on GitHub](https://github.com/reywood/meteor-iron-router-ga/issues).
