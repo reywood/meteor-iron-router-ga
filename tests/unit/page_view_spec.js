@@ -1,13 +1,28 @@
 require("should");
-var fakeGa = require("./fakes/fake_ga");
-var fakeRouter = require("./fakes/fake_router");
+var fakeGa = require("./lib/fake_ga");
+var fakeRouter = require("./lib/fake_router");
+var eventLog = require("./lib/event_log");
 require("../../lib/router");
 
 describe("page view:", function() {
 
     beforeEach(function() {
+        eventLog.reset();
         fakeGa.reset();
         fakeRouter.reset();
+    });
+
+    it("should set page and track page view if trackPageView is globally configured", function() {
+        Router.configure({
+            trackPageView: true
+        });
+        Router.route("test-route");
+
+        Router.executeRoute("test-route");
+
+        eventLog.count().should.equal(2);
+        eventLog.eventAtIndexShouldBe(0, "ga", [ "set", "page", "http://localhost/test-route" ]);
+        eventLog.eventAtIndexShouldBe(1, "ga", [ "send", "pageview" ]);
     });
 
     it("should set page and track page view", function() {
@@ -17,28 +32,23 @@ describe("page view:", function() {
 
         Router.executeRoute("test-route");
 
-        fakeGa.queue.length.should.equal(2);
-        fakeGa.queue[0].length.should.equal(3);
-        fakeGa.queue[0][0].should.equal("set");
-        fakeGa.queue[0][1].should.equal("page");
-        fakeGa.queue[0][2].should.equal("http://localhost/test-route");
-        fakeGa.queue[1].length.should.equal(2);
-        fakeGa.queue[1][0].should.equal("send");
-        fakeGa.queue[1][1].should.equal("pageview");
+        eventLog.count().should.equal(2);
+        eventLog.eventAtIndexShouldBe(0, "ga", [ "set", "page", "http://localhost/test-route" ]);
+        eventLog.eventAtIndexShouldBe(1, "ga", [ "send", "pageview" ]);
     });
 
     it("should not track page view but should set page", function() {
+        Router.configure({
+            trackPageView: true
+        });
         Router.route("test-route", {
             trackPageView: false
         });
 
         Router.executeRoute("test-route");
 
-        fakeGa.queue.length.should.equal(1);
-        fakeGa.queue[0].length.should.equal(3);
-        fakeGa.queue[0][0].should.equal("set");
-        fakeGa.queue[0][1].should.equal("page");
-        fakeGa.queue[0][2].should.equal("http://localhost/test-route");
+        eventLog.count().should.equal(1);
+        eventLog.eventAtIndexShouldBe(0, "ga", [ "set", "page", "http://localhost/test-route" ]);
     });
 
     it("should call route's onRun handler and pass along arguments if tracking is enabled", function() {

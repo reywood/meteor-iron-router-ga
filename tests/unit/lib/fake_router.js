@@ -2,6 +2,10 @@ var FakeRouter = function() {
     this.routes = {};
 };
 
+FakeRouter.prototype.configure = function(options) {
+    this.options = options;
+};
+
 FakeRouter.prototype.route = function(name, options) {
     this.routes[name] = new FakeRoute(name, options);
 

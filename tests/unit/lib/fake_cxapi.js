@@ -1,31 +1,28 @@
-var fakeGa = require("./fake_ga");
+// var fakeGa = require("./fake_ga");
+var eventLog = require("./event_log");
 
 if (typeof window === "undefined") { window = {}; }
+
+var DEFAULT_VARIATION = 0;
 
 window.cxApi = cxApi = {
     NO_CHOSEN_VARIATION: -1,
     NOT_PARTICIPATING: -2,
     ORIGINAL_VARIATION: 0,
 
-    experiments: {},
+    chosenVariation: -1,
     chooseVariationCalled: false,
 
     getChosenVariation: function(experimentId) {
-        if (this.experiments[experimentId]) {
-            return this.experiments[experimentId].chosenVariation;
-        }
-        return this.NO_CHOSEN_VARIATION;
+        eventLog.add("cxApi.getChosenVariation", [ experimentId ]);
+        return this.chosenVariation;
     },
 
-    setChosenVariation: function(variationIndex, experimentId) {
-        this.experiments[experimentId] = { chosenVariation: variationIndex };
-        fakeGa.callStack.push("cxApi.setChosenVariation");
-    },
-
-    chooseVariation: function(experimentId) {
+    chooseVariation: function() {
         this.chooseVariationCalled = true;
-        this.setChosenVariation(0, experimentId);
-        return 0;
+        this.setChosenVariationForTesting(DEFAULT_VARIATION);
+        eventLog.add("cxApi.chooseVariation", []);
+        return DEFAULT_VARIATION;
     },
 
     setDomainName: function(domainName) {
@@ -38,6 +35,10 @@ window.cxApi = cxApi = {
 
     setAllowHash: function(allowHash) {
         this.allowHash = allowHash;
+    },
+
+    setChosenVariationForTesting: function(variationIndex) {
+        this.chosenVariation = variationIndex;
     }
 };
 

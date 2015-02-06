@@ -1,11 +1,12 @@
 require("should");
 
-require("./fakes/fake_deps");
-require("./fakes/fake_window");
+require("./lib/fake_deps");
+require("./lib/fake_window");
 
-var fakeCxApi = require("./fakes/fake_cxapi");
-var fakeGa = require("./fakes/fake_ga");
-var fakeRouter = require("./fakes/fake_router");
+var eventLog = require("./lib/event_log");
+var fakeCxApi = require("./lib/fake_cxapi");
+var fakeGa = require("./lib/fake_ga");
+var fakeRouter = require("./lib/fake_router");
 
 require("../../lib/router");
 
@@ -13,6 +14,7 @@ require("../../lib/router");
 describe("content experiments:", function() {
 
     beforeEach(function() {
+        eventLog.reset();
         fakeGa.reset();
         fakeCxApi.reset();
         fakeRouter.reset();
@@ -32,16 +34,12 @@ describe("content experiments:", function() {
 
         route.renderedTemplate.should.match(/^(template1|template2|template3)$/);
 
-        fakeGa.queue.length.should.equal(2);
-        fakeGa.queue[1][0].should.equal("send");
-        fakeGa.queue[1][1].should.equal("event");
-        fakeGa.queue[1][2].should.equal("iron-router-ga");
-        fakeGa.queue[1][3].should.equal("Choose experiment variation");
-
-        fakeGa.callStack.length.should.equal(3);
-        fakeGa.callStack[0].should.equal("ga");
-        fakeGa.callStack[1].should.equal("cxApi.setChosenVariation");
-        fakeGa.callStack[2].should.equal("ga");
+        eventLog.count().should.equal(5);
+        eventLog.eventAtIndexShouldBe(0, "ga", [ "set", "page", "http://localhost/home" ]);
+        eventLog.eventAtIndexShouldBe(1, "cxApi.getChosenVariation", [ "a1b2c3d4e5f6g7h8i9" ]);
+        eventLog.eventAtIndexShouldBe(2, "cxApi.chooseVariation", []);
+        eventLog.eventAtIndexShouldBe(3, "ga", [ "send", "event", "iron-router-ga", "Choose experiment variation", "a1b2c3d4e5f6g7h8i9", 0 ]);
+        eventLog.eventAtIndexShouldBe(4, "cxApi.getChosenVariation", [ "a1b2c3d4e5f6g7h8i9" ]);
     });
 
     it("should choose a variant if none is set", function() {
@@ -60,9 +58,10 @@ describe("content experiments:", function() {
     });
 
     it("should display the same template if a variant has been set", function() {
-        cxApi.setChosenVariation(1, "a1b2c3d4e5f6g7h8i9");
+        cxApi.setChosenVariationForTesting(1);
 
         for (var i = 0; i < 100; i++) {
+            eventLog.reset();
             fakeRouter.reset();
 
             var route = Router.route("home", {
@@ -77,6 +76,11 @@ describe("content experiments:", function() {
             route.action();
 
             route.renderedTemplate.should.equal("template2");
+
+            eventLog.count().should.equal(3);
+            eventLog.eventAtIndexShouldBe(0, "ga", [ "set", "page", "http://localhost/home" ]);
+            eventLog.eventAtIndexShouldBe(1, "cxApi.getChosenVariation", [ "a1b2c3d4e5f6g7h8i9" ]);
+            eventLog.eventAtIndexShouldBe(2, "cxApi.getChosenVariation", [ "a1b2c3d4e5f6g7h8i9" ]);
         }
     });
 
