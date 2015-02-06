@@ -10,27 +10,35 @@ describe("page view:", function() {
         fakeRouter.reset();
     });
 
-    it("should track page view", function() {
+    it("should set page and track page view", function() {
         Router.route("test-route", {
             trackPageView: true
         });
 
         Router.executeRoute("test-route");
 
-        fakeGa.queue.length.should.equal(1);
-        fakeGa.queue[0][0].should.equal("send");
-        fakeGa.queue[0][1].should.equal("pageview");
+        fakeGa.queue.length.should.equal(2);
+        fakeGa.queue[0].length.should.equal(3);
+        fakeGa.queue[0][0].should.equal("set");
+        fakeGa.queue[0][1].should.equal("page");
         fakeGa.queue[0][2].should.equal("http://localhost/test-route");
+        fakeGa.queue[1].length.should.equal(2);
+        fakeGa.queue[1][0].should.equal("send");
+        fakeGa.queue[1][1].should.equal("pageview");
     });
 
-    it("should not track page view", function() {
+    it("should not track page view but should set page", function() {
         Router.route("test-route", {
             trackPageView: false
         });
 
         Router.executeRoute("test-route");
 
-        fakeGa.queue.length.should.equal(0);
+        fakeGa.queue.length.should.equal(1);
+        fakeGa.queue[0].length.should.equal(3);
+        fakeGa.queue[0][0].should.equal("set");
+        fakeGa.queue[0][1].should.equal("page");
+        fakeGa.queue[0][2].should.equal("http://localhost/test-route");
     });
 
     it("should call route's onRun handler and pass along arguments if tracking is enabled", function() {
