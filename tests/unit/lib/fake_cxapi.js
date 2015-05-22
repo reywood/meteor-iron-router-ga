@@ -1,7 +1,6 @@
-// var fakeGa = require("./fake_ga");
-var eventLog = require("./event_log");
+var eventLog = require('./event_log');
 
-if (typeof window === "undefined") { window = {}; }
+if (typeof window === 'undefined') { window = {}; }
 
 var DEFAULT_VARIATION = 0;
 
@@ -14,14 +13,14 @@ window.cxApi = cxApi = {
     chooseVariationCalled: false,
 
     getChosenVariation: function(experimentId) {
-        eventLog.add("cxApi.getChosenVariation", [ experimentId ]);
+        eventLog.add('cxApi.getChosenVariation', [ experimentId ]);
         return this.chosenVariation;
     },
 
     chooseVariation: function() {
         this.chooseVariationCalled = true;
         this.setChosenVariationForTesting(DEFAULT_VARIATION);
-        eventLog.add("cxApi.chooseVariation", []);
+        eventLog.add('cxApi.chooseVariation', []);
         return DEFAULT_VARIATION;
     },
 

@@ -18,7 +18,7 @@ FakeRouter.prototype.executeRoute = function(name) {
     args.shift();
 
     if (!route) {
-        throw new Exception("Route not found: " + name);
+        throw new Exception('Route not found: ' + name);
     }
 
     route.execute.apply(route, args);

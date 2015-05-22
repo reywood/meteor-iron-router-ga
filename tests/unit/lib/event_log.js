@@ -1,4 +1,4 @@
-require("should");
+require('should');
 
 var eventLog = [];
 

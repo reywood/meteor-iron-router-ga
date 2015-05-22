@@ -1,30 +1,14 @@
-var eventLog = require("./event_log");
+var eventLog = require('./event_log');
 
-if (typeof window === "undefined") { window = {}; }
-
-// var callStack = [];
-// var queue = [];
+if (typeof window === 'undefined') { window = {}; }
 
 window.ga = ga = function() {
     var args = [].slice.apply(arguments);
-    // callStack.push("ga");
-    // queue.push(args);
-    eventLog.add("ga", args);
+    eventLog.add('ga', args);
 };
 
 module.exports = {
-    // callStack: callStack,
-    // queue: queue,
-
     reset: function() {
         window.ga = ga;
-        // clearArray(queue);
-        // clearArray(callStack);
     }
 };
-
-// var clearArray = function(a) {
-//     while (a.length) {
-//         a.pop();
-//     }
-// };
