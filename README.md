@@ -4,11 +4,13 @@
 
 Google analytics ([universal edition](https://support.google.com/analytics/answer/2790010?hl=en)) for [Meteor](https://www.meteor.com/) with some [Iron Router](https://github.com/EventedMind/iron-router) sugar for tracking page views and doing A/B testing with [Content Experiments](https://developers.google.com/analytics/devguides/platform/experiments).
 
+
 ## Installation
 
 ```sh
 $ meteor add reywood:iron-router-ga
 ```
+
 
 ## Meteor Settings
 
@@ -150,6 +152,16 @@ Router.route("routeName", {
     Variation 2
 </template>
 ```
+
+
+## Cordova settings
+
+If you are building a Cordova app, you will need to allow your app to access the Google Analytics servers. Add the following snippet to your [`mobile-config.js`](https://docs.meteor.com/#/full/mobileconfigjs) file.
+
+```javascript
+App.accessRule('*.google-analytics.com/*');
+```
+
 
 ## Known Issues
 
