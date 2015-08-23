@@ -96,4 +96,33 @@ describe('page view:', function() {
     it('should handle routes with no options', function() {
         Router.route('no-options');
     });
+
+    it('should handle routes that specify an action function and then options', function() {
+        var actionCalled = false;
+        Router.route('action-route', function() { actionCalled = true; }, {
+            trackPageView: true
+        });
+
+        Router.executeRoute('action-route');
+
+        actionCalled.should.equal(true);
+        eventLog.count().should.equal(2);
+        eventLog.eventAtIndexShouldBe(0, 'ga', [ 'set', 'page', 'http://localhost/action-route' ]);
+        eventLog.eventAtIndexShouldBe(1, 'ga', [ 'send', 'pageview' ]);
+    });
+
+    it('should handle routes that specify just an action function', function() {
+        var actionCalled = false;
+        Router.configure({
+            trackPageView: true
+        });
+        Router.route('action-route', function() { actionCalled = true; });
+
+        Router.executeRoute('action-route');
+
+        actionCalled.should.equal(true);
+        eventLog.count().should.equal(2);
+        eventLog.eventAtIndexShouldBe(0, 'ga', [ 'set', 'page', 'http://localhost/action-route' ]);
+        eventLog.eventAtIndexShouldBe(1, 'ga', [ 'send', 'pageview' ]);
+    });
 });
