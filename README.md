@@ -42,6 +42,10 @@ For more info on possible values for the configuration options below, check out 
 
     Additional tracking options to require with `ga("require", ...)` such as [Display Advertising Features](https://developers.google.com/analytics/devguides/collection/analyticsjs/display-features) or [Enhanced Link Attribution](https://support.google.com/analytics/answer/2558867). For features like `displayfeatures` that don't have a corresponding `*.js` parameter (as `linkid` does), simply set the property value to `true`.
 
+* **`trackUserId`** -- boolean
+
+    If set to `true`, the currently logged in user's ID will be sent with all pageviews, events, etc. [Learn more about user ID tracking](https://support.google.com/analytics/answer/3123662?hl=en). Defaults to `false`.
+
 Advanced configuration example:
 
 ```json
@@ -61,7 +65,8 @@ Advanced configuration example:
             "require": {
                 "displayfeatures": true,
                 "linkid": "linkid.js"
-            }
+            },
+            "trackUserId": true
         }
     }
 }
