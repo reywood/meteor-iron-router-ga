@@ -75,7 +75,7 @@ Advanced configuration example:
 
 ## Usage
 
-Once you have installed this package and added the required configuration, you will have access to the `ga` function anywhere in your Meteor code. You can use it just as you would on any other site.
+Once you have installed this package and added the required configuration, you will have access to the `ga` function anywhere in your client-side Meteor code. You can use it just as you would on any other site.
 
 ### Event Tracking
 
