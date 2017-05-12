@@ -1,26 +1,13 @@
 {
-  "name": "meteor-iron-router-ga",
-  "version": "0.0.0",
-  "description": "",
-  "main": "package.js",
-  "dependencies": {},
+  "name": "publish-composite",
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-simple-mocha": "^0.4.0",
-    "should": "^3.3.1"
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0"
   },
   "scripts": {
-    "test": "grunt"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/reywood/meteor-iron-router-ga.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/reywood/meteor-iron-router-ga/issues"
-  },
-  "homepage": "https://github.com/reywood/meteor-iron-router-ga"
+    "test": "eslint package.js lib/"
+  }
 }

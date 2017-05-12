@@ -1,0 +1,30 @@
+{
+    "extends": "airbnb",
+    "env": {
+        "browser": true
+    },
+    "globals": {
+        "Package": true,
+        "Npm": true,
+        "Tinytest": true,
+        "BrowserPolicy": true
+    },
+    "rules": {
+        "complexity": ["error", 5],
+        "indent": ["error", 4],
+        "import/prefer-default-export": 0,
+        "max-len": ["error", 120],
+        "no-console": 0,
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "no-underscore-dangle": 0,
+        "no-use-before-define": ["error", { "functions": false, "classes": false }]
+    },
+    "settings": {
+        "import/core-modules": [
+            "meteor/meteor",
+            "meteor/tracker",
+            "meteor/iron:core",
+            "meteor/iron:router"
+        ]
+    }
+}

@@ -77,6 +77,14 @@ Advanced configuration example:
 
 Once you have installed this package and added the required configuration, you will have access to the `ga` function anywhere in your client-side Meteor code. You can use it just as you would on any other site.
 
+To enable page view tracking and content experiments (discussed below), you will need to add the plugin to your router.
+
+```javascript
+if (Meteor.isClient) {
+    Router.plugin('ironRouterGA');
+}
+```
+
 ### Event Tracking
 
 [Tracking events](https://developers.google.com/analytics/devguides/collection/analyticsjs/events) is the same as always:
