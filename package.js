@@ -15,7 +15,7 @@ Package.onUse((api) => {
         'accounts-base',
         'templating',
         'tracker',
-        'iron:router',
+        'iron:router@1.0.0',
     ], 'client');
 
     api.addFiles([
