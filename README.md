@@ -81,7 +81,7 @@ To enable page view tracking and content experiments (discussed below), you will
 
 ```javascript
 if (Meteor.isClient) {
-    Router.plugin('ironRouterGA');
+    Router.plugin('reywood:iron-router-ga');
 }
 ```
 
