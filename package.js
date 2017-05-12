@@ -1,7 +1,7 @@
 Package.describe({
     name: 'reywood:iron-router-ga',
     summary: 'Google analytics (universal edition) with some Iron Router sugar for tracking page views.',
-    version: '2.0.0',
+    version: '2.0.1',
     git: 'https://github.com/reywood/meteor-iron-router-ga.git',
 });
 

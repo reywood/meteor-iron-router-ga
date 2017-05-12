@@ -51,7 +51,7 @@ rate-limit@1.0.8
 reactive-dict@1.1.8
 reactive-var@1.0.11
 retry@1.0.9
-reywood:iron-router-ga@2.0.0
+reywood:iron-router-ga@2.0.1
 routepolicy@1.0.12
 service-configuration@1.0.11
 spacebars@1.0.12
